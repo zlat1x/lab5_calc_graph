@@ -1,6 +1,7 @@
 #include "calc_graph.h"
 
 #include <chrono>
+#include <future>
 #include <iostream>
 #include <syncstream>
 #include <thread>
@@ -20,13 +21,36 @@ namespace calc_graph {
     }
 
     void work() {
+        using std::chrono::steady_clock;
+        using std::chrono::duration_cast;
+        using std::chrono::seconds;
+
+        auto start = steady_clock::now();
+
+        auto future_c = std::async(std::launch::async, [] {
+            slow("C");
+        });
+
+        auto future_b_d2_f2 = std::async(std::launch::async, [] {
+            quick("B");
+            quick("D2");
+            quick("F2");
+        });
+
         slow("A");
-        quick("B");
-        slow("C");
+
+        future_c.get();
+        future_b_d2_f2.get();
 
         quick("D1");
-        quick("D2");
+        
         quick("F1");
-        quick("F2");
+
+        auto finish = steady_clock::now();                    
+        auto elapsed = duration_cast<seconds>(finish - start); 
+
+        std::osyncstream(std::cout) << "Total time: "
+                                    << elapsed.count() << " s\n";
+        std::osyncstream(std::cout) << "Work is done!\n";
     }
 }
