@@ -1,0 +1,17 @@
+# CMake out-of-source build
+build/
+
+# Executables
+*.exe
+*.out
+
+# Object files
+*.o
+
+# VS Code junk
+.vscode/*.log
+.vscode/*.cache
+
+# OS files
+Thumbs.db
+.DS_Store
