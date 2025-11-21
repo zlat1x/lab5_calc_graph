@@ -8,9 +8,8 @@ build/
 # Object files
 *.o
 
-# VS Code junk
-.vscode/*.log
-.vscode/*.cache
+# VS Code config
+.vscode/
 
 # OS files
 Thumbs.db
