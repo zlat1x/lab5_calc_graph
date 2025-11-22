@@ -7,17 +7,20 @@
 #include <thread>
 
 namespace calc_graph {
+    constexpr int slow_duration_seconds = 7;
+    constexpr int quick_duration_seconds = 1;
+
     static void run_step(const std::string& name, int seconds) {
         std::this_thread::sleep_for(std::chrono::seconds(seconds));
         std::osyncstream(std::cout) << name << '\n';
     }
 
     void slow(const std::string& name) {
-        run_step(name, 7);
+        run_step(name, slow_duration_seconds);
     }
 
     void quick(const std::string& name) {
-        run_step(name, 1);
+        run_step(name, quick_duration_seconds);
     }
 
     void work() {
